@@ -1,0 +1,48 @@
+{
+  "name": "luohao-gantt",
+  "version": "1.0.0",
+  "description": "甘特图",
+  "main": "index.js",
+  "scripts": {
+    "serve": "webpack-dev-server --open",
+    "build": "webpack --progress",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "dependencies": {
+    "frappe-gantt": "^0.5.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.14.7",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-import": "^1.13.3",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "less": "^3.0.4",
+    "less-loader": "^5.0.0",
+    "vue": "2.6.11",
+    "vue-loader": "^15.9.0",
+    "vue-template-compiler": "2.6.11",
+    "vuepress": "^1.8.2",
+    "vuepress-plugin-clean-urls": "^1.1.2",
+    "vuepress-plugin-container": "^2.1.5",
+    "webpack-dev-server": "^3.11.2",
+    "webpack": "^5.45.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuoHaoAt2017/luohao-gantt.git"
+  },
+  "author": "LuoHao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LuoHaoAt2017/luohao-gantt/issues"
+  },
+  "homepage": "https://github.com/LuoHaoAt2017/luohao-gantt#readme"
+}
