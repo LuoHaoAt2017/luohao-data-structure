@@ -127,13 +127,8 @@ export default {
 </script>
 
 <style lang="less">
+@import url('~@/styles/scrollbar.less');
 .app {
   padding: 10px;
-  .gantt {
-    height: 400px;
-    .gantt-container {
-      height: 100%;
-    }
-  }
 }
 </style>
