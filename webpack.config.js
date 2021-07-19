@@ -10,7 +10,7 @@ function resolve(params) {
 
 module.exports = {
   mode: 'development',
-  entry: resolve("demo/index.js"),
+  entry: resolve("src/index.js"),
   output: {
     filename: "index.js",
     path: resolve("dist"),
@@ -22,28 +22,29 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: "vue-loader",
-        include: [resolve('demo'), resolve('demo')],
       },
       {
         test: /\.js$/,
         loader: "babel-loader",
-        include: [resolve('src'), resolve('demo')],
       },
       {
-        test: /\.(less|css)$/,
-        use: ["css-loader", "less-loader"],
-        include: [resolve('src'), resolve('demo')],
+        test: /\.(scss)$/,
+        use: ["vue-style-loader", "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(css|less)$/,
+        use: ["vue-style-loader", "css-loader", "less-loader"],
       },
       {
         test: /\.(png|jpg|svg)$/,
         loader: "file-loader",
-        include: [resolve('src'), resolve('demo')],
       },
     ],
   },
   resolve: {
     alias: {
       "@": resolve("src"),
+      "gantt": resolve("./gantt/index.js")
     },
     extensions: [".js", ".vue"],
   },
