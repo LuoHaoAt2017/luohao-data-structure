@@ -10,7 +10,27 @@
 </template>
 
 <script>
-import Gantt from 'gantt';
+import moment from 'moment';
+import Gantt from "gantt";
+import Mock from "mockjs";
+const Random = Mock.Random;
+Random.extend({
+  createId() {
+    return Math.random().toString(36).slice(2, 12);
+  },
+  createName() {
+    return Random.cname();
+  },
+  createStart() {
+    return moment().add(Random.integer(-100, 100), 'days').format('YYYY-MM-DD');
+  },
+  createEnd() {
+    return moment().add(Random.integer(100, 200), 'days').format('YYYY-MM-DD');
+  },
+  createProgress() {
+    return Random.integer(0, 100);
+  },
+});
 export default {
   name: "App",
   data() {
@@ -18,65 +38,75 @@ export default {
       gantt: null,
       tasks: [
         {
-          start: '2018-10-01',
-          end: '2018-10-08',
-          name: 'Redesign website',
+          start: "2018-10-01",
+          end: "2018-10-08",
+          name: "Redesign website",
           id: "Task 0",
-          progress: 20
+          progress: 20,
         },
         {
-          start: '2018-10-03',
-          end: '2018-10-06',
-          name: 'Write new content',
+          start: "2018-10-03",
+          end: "2018-10-06",
+          name: "Write new content",
           id: "Task 1",
           progress: 5,
-          dependencies: 'Task 0'
+          dependencies: "Task 0",
         },
         {
-          start: '2018-10-04',
-          end: '2018-10-08',
-          name: 'Apply new styles',
+          start: "2018-10-04",
+          end: "2018-10-08",
+          name: "Apply new styles",
           id: "Task 2",
           progress: 10,
-          dependencies: 'Task 1'
+          dependencies: "Task 1",
         },
         {
-          start: '2018-10-08',
-          end: '2018-10-09',
-          name: 'Review',
+          start: "2018-10-08",
+          end: "2018-10-09",
+          name: "Review",
           id: "Task 3",
           progress: 5,
-          dependencies: 'Task 2'
+          dependencies: "Task 2",
         },
         {
-          start: '2018-10-08',
-          end: '2018-10-10',
-          name: 'Deploy',
+          start: "2018-10-08",
+          end: "2018-10-10",
+          name: "Deploy",
           id: "Task 4",
           progress: 0,
-          dependencies: 'Task 2'
+          dependencies: "Task 2",
         },
         {
-          start: '2018-10-11',
-          end: '2018-10-11',
-          name: 'Go Live!',
+          start: "2018-10-11",
+          end: "2018-10-11",
+          name: "Go Live!",
           id: "Task 5",
           progress: 0,
-          dependencies: 'Task 4',
-          custom_class: 'bar-milestone'
+          dependencies: "Task 4",
+          custom_class: "bar-milestone",
         },
-        {
-          start: '2014-01-05',
-          end: '2019-10-12',
-          name: 'Long term task',
-          id: "Task 6",
-          progress: 0
-        }
       ],
       view_modes: ["Day", "Week", "Month"],
     };
   },
   methods: {
+    addTasks() {
+      const data = Mock.mock({
+        // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+        "list|500-1200": [
+          {
+            // 属性 id 是一个自增数，起始值为 1，每次增 1
+            id: "@createId",
+            name: "@createName",
+            start: "@createStart",
+            end: "@createEnd",
+            progress: "@createProgress",
+          },
+        ],
+      }).list;
+      // console.table(data);
+      this.tasks = data;
+    },
     addGantt() {
       const gantt = new Gantt("#gantt", this.tasks, {
         header_height: 50,
@@ -87,20 +117,20 @@ export default {
         bar_corner_radius: 3,
         arrow_curve: 5,
         padding: 18,
-        view_mode: "Day",
+        view_mode: "Month",
         date_format: "YYYY-MM-DD",
-        custom_popup_html: function (task) {
-          // the task object will contain the updated
-          // dates and progress value
-          const end_date = task._end.format("MMM D");
-          return `
-            <div class="details-container">
-              <h5>${task.name}</h5>
-              <p>Expected to finish by ${end_date}</p>
-              <p>${task.progress}% completed!</p>
-            </div>
-            `;
-        },
+        // custom_popup_html: function (task) {
+        //   // the task object will contain the updated
+        //   // dates and progress value
+        //   const end_date = task._end.format("MMM D");
+        //   return `
+        //     <div class="details-container">
+        //       <h5>${task.name}</h5>
+        //       <p>Expected to finish by ${end_date}</p>
+        //       <p>${task.progress}% completed!</p>
+        //     </div>
+        //     `;
+        // },
         on_click: function (task) {
           console.log(task);
         },
@@ -121,13 +151,14 @@ export default {
     },
   },
   mounted() {
+    this.addTasks();
     this.addGantt();
   },
 };
 </script>
 
 <style lang="less">
-@import url('~@/styles/scrollbar.less');
+@import url("~@/styles/scrollbar.less");
 .app {
   padding: 10px;
 }
