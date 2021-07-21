@@ -6,6 +6,8 @@ import Popup from './popup';
 
 import './gantt.scss';
 
+// 分层绘制
+
 const VIEW_MODE = {
     QUARTER_DAY: 'Quarter Day',
     HALF_DAY: 'Half Day',
@@ -73,20 +75,21 @@ export default class Gantt {
     }
 
     setup_options(options) {
+        // 对外暴露的属性
         const default_options = {
             header_height: 50,
             column_width: 30,
             step: 24,
             view_modes: [...Object.values(VIEW_MODE)],
-            bar_height: 20,
-            bar_corner_radius: 3,
-            arrow_curve: 5,
-            padding: 18,
+            bar_height: 20, // 进度条的高度
+            bar_corner_radius: 3, // 进度条圆角
+            arrow_curve: 5, // 箭头转弯角度
+            padding: 18, // 一行的内边距
             view_mode: 'Day',
             date_format: 'YYYY-MM-DD',
-            popup_trigger: 'click',
+            popup_trigger: 'click', // todo
             custom_popup_html: null,
-            language: 'en'
+            language: 'zh'
         };
         this.options = Object.assign({}, default_options, options);
     }
@@ -137,10 +140,7 @@ export default class Gantt {
             if (typeof task.dependencies === 'string' || !task.dependencies) {
                 let deps = [];
                 if (task.dependencies) {
-                    deps = task.dependencies
-                        .split(',')
-                        .map(d => d.trim())
-                        .filter(d => d);
+                    deps = task.dependencies.split(',').map(d => d.trim()).filter(d => d);
                 }
                 task.dependencies = deps;
             }
@@ -154,9 +154,15 @@ export default class Gantt {
         });
 
         this.setup_dependencies();
+        console.log(this.dependency_map);
     }
 
     setup_dependencies() {
+        // { 
+        //  Task 0: ['Task 1'],
+        //  Task 1: ['Task 2', 'Task 3'],
+        //  Task 3: ['Task 4'],
+        // }
         this.dependency_map = {};
         for (let t of this.tasks) {
             for (let d of t.dependencies) {
@@ -281,6 +287,9 @@ export default class Gantt {
         this.set_scroll_position();
     }
 
+    /**
+     * 绘制图层
+    */
     setup_layers() {
         this.layers = {};
         const layers = ['grid', 'date', 'arrow', 'progress', 'bar', 'details'];
