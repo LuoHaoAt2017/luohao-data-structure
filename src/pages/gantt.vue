@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="container">
     <a-button-group>
       <a-button @click="changeView('Day')">日</a-button>
       <a-button @click="changeView('Week')">周</a-button>
