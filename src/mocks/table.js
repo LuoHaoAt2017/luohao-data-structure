@@ -12,39 +12,43 @@ Random.extend({
     return Random.date("yyyy-MM-dd");
   },
   numberVal() {
-    return Random.float();
+    return Random.integer(20, 40);
   },
   addressVal() {
     return Random.province() + Random.city() + Random.county();
   },
   orgVal() {
-    return Random.clast();
+    return Random.cname();
   },
   attachVal() {
     return Random.image("200x200", "#ffcc33", "#FFF", "png", Random.city());
   },
 });
 
-export default function mockData() {
+export default function mockData({ pageSize }) {
   return Mock.mock({
     "list|100-500": [
       {
         id: "@idVal",
         title: "@textVal",
-        rate: "@numberVal",
+        age: "@numberVal",
+        datetime: "@dateVal",
         datetime1: "@dateVal",
         datetime2: "@dateVal",
         datetime3: "@dateVal",
+        address: "@addressVal",
         address1: "@addressVal",
         address2: "@addressVal",
         address3: "@addressVal",
+        organization: "@orgVal",
         organization1: "@orgVal",
         organization2: "@orgVal",
         organization3: "@orgVal",
-        attachments1: "@attachVal",
-        attachments2: "@attachVal",
-        attachments3: "@attachVal",
+        attachment: "@attachVal",
+        attachment1: "@attachVal",
+        attachment2: "@attachVal",
+        attachment3: "@attachVal",
       },
     ],
-  }).list;
+  }).list.slice(0, pageSize);
 }
