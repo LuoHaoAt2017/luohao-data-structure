@@ -11,7 +11,7 @@
         <!-- <vxe-button @click="onAction(1)">行高相等</vxe-button>
         <vxe-button @click="onAction(2)">行高不等</vxe-button> -->
         <vxe-button @click="onAction(3)">刷新</vxe-button>
-        <!-- <vxe-button @click="onAction(4)">导出</vxe-button> -->
+        <vxe-button @click="onAction(4)">重载</vxe-button>
       </template>
       <template #textbox="{ row, column }">
         <custom-textbox :row="row" :col="column"></custom-textbox>
@@ -77,7 +77,7 @@ export default {
         align: "left",
         loading: false,
         highlightHoverRow: true,
-        showOverflow: false, // 'tooltip'
+        showOverflow: 'tooltip', // 'tooltip'
         showHeaderOverflow: true, // 设置表头所有内容过长时显示为省略号
         showHeader: true,
         showFooter: false,
@@ -139,24 +139,22 @@ export default {
     onAction(type) {
       switch (type) {
         case 1:
-          this.gridOptions.showOverflow = true;
           this.loadData();
           break;
         case 2:
-          this.gridOptions.showOverflow = false;
           this.loadData();
           break;
         case 3:
-          this.gridOptions.showOverflow = false;
           this.loadData();
           break;
         case 4:
+          this.forceLoad();
           break;
         default:
           break;
       }
     },
-    loadData({ pageSize } = { pageSize: 20 }) {
+    loadData({ pageSize } = { pageSize: 20 }, callback) {
       this.loading = true;
       console.time('data');
       this.$axios.request({
@@ -169,7 +167,7 @@ export default {
         if (resp.status === 200) {
           this.gridData = resp.data;
           this.gridPage.total = 500;
-          console.timeEnd('data');
+          
         } else {
           this.$message.error('获取列表数据失败');
         }
@@ -177,9 +175,14 @@ export default {
         this.$message.error(error);
       }).finally(() => {
         this.loading = false;
+        console.timeEnd('data');
+        setTimeout(() => {
+          callback && callback();
+        });
       });
     },
     loadCols() {
+      console.time('cols');
       return new Promise((resolve) => {
         this.$axios.request({
           url: '/getTableCols',
@@ -192,6 +195,7 @@ export default {
           resolve(true);
         }).catch(() => {
           this.gridCols = [];
+          console.timeEnd('cols');
           resolve(false);
         });
       });
@@ -205,13 +209,17 @@ export default {
         pageOffset: this.gridPage.pageOffset,
       });
     },
+    forceLoad() {
+      console.time('total');
+      this.loadCols().then(() => {
+        this.loadData({ pageSize: 20 }, () => {
+          console.timeEnd('total');
+        });
+      });
+    }
   },
   mounted() {
-    console.time('cols');
-    this.loadCols().then(() => {
-      console.timeEnd('cols');
-      this.loadData();
-    });
+    this.forceLoad();
   },
 };
 </script>
