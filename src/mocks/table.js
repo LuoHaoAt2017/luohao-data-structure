@@ -1,7 +1,7 @@
 import Mock from "mockjs";
 
 Mock.setup({
-  timeout: '200-600'
+  timeout: '500-1000'
 });
 
 Mock.Random.extend({
@@ -193,7 +193,8 @@ Mock.mock('/getTableData', function(options) {
   }).list.slice(0, pageSize);
 });
 
-Mock.mock('/getTableCols', function() {
+Mock.mock('/getTableCols', function(options) {
+  const { include } = JSON.parse(options.body);
   const columns = [
     { type: "seq", width: 50, align: "center" },
     { type: "checkbox", width: 50, align: "center" },
@@ -373,37 +374,39 @@ Mock.mock('/getTableCols', function() {
       ],
     },
   ];
-  // ip
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "ip" + (index + 1), title: "ip" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // name
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "name" + (index + 1), title: "name" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // status
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "status" + (index + 1), title: "status" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // website
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "website" + (index + 1), title: "website" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // brief
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "brief" + (index + 1), title: "brief" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // email
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "email" + (index + 1), title: "email" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // create
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "create" + (index + 1), title: "create" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
-  // update
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "update" + (index + 1), title: "update" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
-  });
+  if (include) {
+    // ip
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "ip" + (index + 1), title: "ip" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // name
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "name" + (index + 1), title: "name" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // status
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "status" + (index + 1), title: "status" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // website
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "website" + (index + 1), title: "website" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // brief
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "brief" + (index + 1), title: "brief" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // email
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "email" + (index + 1), title: "email" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // create
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "create" + (index + 1), title: "create" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+    // update
+    Array.from({length: 5}, (_, index) => index).forEach((index) => {
+      columns.push({ field: "update" + (index + 1), title: "update" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+    });
+  }
   return columns;
 });

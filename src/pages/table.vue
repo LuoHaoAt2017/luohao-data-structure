@@ -39,7 +39,7 @@
           :page-size="gridPage.pageSize"
           :page-sizes="pageSelector"
           :total="gridPage.total"
-          @page-change="onPageChange"
+          @page-change="onChange"
           size="medium"
         >
         </vxe-pager>
@@ -147,6 +147,7 @@ export default {
           this.loadData();
           break;
         case 3:
+          this.gridOptions.showOverflow = false;
           this.loadData();
           break;
         case 4:
@@ -182,7 +183,10 @@ export default {
       return new Promise((resolve) => {
         this.$axios.request({
           url: '/getTableCols',
-          method: 'GET'
+          method: 'POST',
+          data: {
+            include: true
+          }
         }).then((resp) => {
           this.gridCols = resp.data;
           resolve(true);
@@ -192,7 +196,7 @@ export default {
         });
       });
     },
-    onPageChange({ currentPage, pageSize }) {
+    onChange({ currentPage, pageSize }) {
       this.gridPage.currentPage = currentPage;
       this.gridPage.pageSize = pageSize;
       this.gridPage.pageOffset = (currentPage - 1) * pageSize;
