@@ -157,6 +157,7 @@ export default {
     },
     loadData({ pageSize } = { pageSize: 20 }) {
       this.loading = true;
+      console.time('data');
       this.$axios.request({
         url: '/getTableData',
         method: 'POST',
@@ -167,6 +168,7 @@ export default {
         if (resp.status === 200) {
           this.gridData = resp.data;
           this.gridPage.total = 500;
+          console.timeEnd('data');
         } else {
           this.$message.error('获取列表数据失败');
         }
@@ -177,13 +179,17 @@ export default {
       });
     },
     loadCols() {
-      this.$axios.request({
-        url: '/getTableCols',
-        method: 'GET'
-      }).then((resp) => {
-        this.gridCols = resp.data;
-      }).catch(() => {
-        this.gridCols = [];
+      return new Promise((resolve) => {
+        this.$axios.request({
+          url: '/getTableCols',
+          method: 'GET'
+        }).then((resp) => {
+          this.gridCols = resp.data;
+          resolve(true);
+        }).catch(() => {
+          this.gridCols = [];
+          resolve(false);
+        });
       });
     },
     onPageChange({ currentPage, pageSize }) {
@@ -197,8 +203,11 @@ export default {
     },
   },
   mounted() {
-    this.loadCols();
-    this.loadData();
+    console.time('cols');
+    this.loadCols().then(() => {
+      console.timeEnd('cols');
+      this.loadData();
+    });
   },
 };
 </script>

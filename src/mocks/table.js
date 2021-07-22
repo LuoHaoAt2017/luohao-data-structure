@@ -1,7 +1,7 @@
 import Mock from "mockjs";
 
 Mock.setup({
-  timeout: '500-1500'
+  timeout: '200-600'
 });
 
 Mock.Random.extend({
