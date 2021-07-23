@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <a-menu mode="horizontal" v-model="defaultSelectedKeys">
-      <a-menu-item key="base">
+      <a-menu-item key="/tree/base">
         <router-link to="/tree/base">基础配置</router-link>
       </a-menu-item>
-      <a-menu-item key="lazy">
-        <router-link to="/tree/lazy">子表懒加载</router-link>
+      <a-menu-item key="/tree/lazy">  
+        <router-link to="/tree/lazy">懒加载</router-link>
       </a-menu-item>
     </a-menu>
     <router-view></router-view>
@@ -26,6 +26,10 @@ export default {
       defaultSelectedKeys: ['base']
     };
   },
+  created() {
+    const hash = this.$route.path;
+    this.defaultSelectedKeys = [hash];
+  }
 };
 </script>
 

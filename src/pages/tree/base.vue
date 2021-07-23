@@ -128,7 +128,4 @@ export default {
 
 <style lang="less">
 @import url("~@/styles/scrollbar.less");
-.app {
-  padding: 10px;
-}
 </style>

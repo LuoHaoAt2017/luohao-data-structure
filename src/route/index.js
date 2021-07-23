@@ -28,7 +28,7 @@ export default new VueRouter({
         },
         {
           path: "/tree",
-          redirect: '/tree/base'
+          redirect: '/tree/lazy'
         },
       ],
     },

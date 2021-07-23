@@ -1,187 +1,100 @@
 <template>
   <div class="container">
+    <vxe-toolbar>
+      <template #buttons>
+        <vxe-button @click="loadData">重新加载</vxe-button>
+        <vxe-button @click="$refs.xTree.setAllTreeExpand(true)">展开所有</vxe-button>
+        <vxe-button @click="$refs.xTree.clearTreeExpand()">关闭所有</vxe-button>
+      </template>
+    </vxe-toolbar>
     <vxe-table
-      resizable
-      border="inner"
       ref="xTree"
+      show-overflow
+      show-header-overflow
+      highlight-hover-row
+      height="800"
+      :scroll-x="{
+        enabled: true,
+        gt: 20,
+        oSize: 5
+      }"
+      :scroll-y="{
+        enabled: true,
+        gt: 30,
+        oSize: 5
+      }"
       :tree-config="{
-        children: 'childs',
+        children: 'children',
         accordion: false,
-        line: false,
+        line: true,
+        lazy: true, // 是否使用懒加载（启用后只有指定 hasChild 的节点才允许被点击）
         toggleMethod: toggleTreeMethod,
       }"
-      :expand-config="{ lazy: true, loadMethod: loadContentMethod }"
-      :data="tableData1"
-      @toggle-tree-expand="toggleExpandChangeEvent"
-    >
-      <vxe-table-column
-        type="seq"
-        align="left"
-        width="80"
-        fixed="left"
-      ></vxe-table-column>
-      <vxe-table-column
-        field="name"
-        title="数据标题"
-        show-overflow="tooltip"
-        tree-node
-      ></vxe-table-column>
-      <vxe-table-column type="expand" width="120" title="子表明细">
-        <template #default>more</template>
-        <template #content="{ row }">
-          <vxe-grid :columns="row.childCols" :data="row.childData"></vxe-grid>
-        </template>
-      </vxe-table-column>
-      <vxe-table-column field="size" title="Size"></vxe-table-column>
-      <vxe-table-column field="type" title="Type"></vxe-table-column>
-      <vxe-table-column field="date" title="Date"></vxe-table-column>
+      :loading="loading"
+      :row-key="true"
+      :resizable="true"
+      :border="true"
+      @toggle-tree-expand="toggleExpandChangeEvent">
     </vxe-table>
   </div>
 </template>
 
 <script>
-import XEUtils from 'xe-utils';
 export default {
   name: "TreeLazy",
   data() {
     return {
-      tableData1: [
-        {
-          id: 1000,
-          name: "vxe-table 从入门到放弃1",
-          type: "mp3",
-          size: 1024,
-          date: "2020-08-01",
-        },
-        {
-          id: 1005,
-          name: "Test2",
-          type: "mp4",
-          size: null,
-          date: "2021-04-01",
-          childs: [
-            {
-              id: 24300,
-              name: "Test3",
-              type: "avi",
-              size: 1024,
-              date: "2020-03-01",
-            },
-            {
-              id: 20045,
-              name: "vxe-table 从入门到放弃4",
-              type: "html",
-              size: 600,
-              date: "2021-04-01",
-            },
-            {
-              id: 10053,
-              name: "vxe-table 从入门到放弃96",
-              type: "avi",
-              size: null,
-              date: "2021-04-01",
-              childs: [
-                {
-                  id: 24330,
-                  name: "vxe-table 从入门到放弃5",
-                  type: "txt",
-                  size: 25,
-                  date: "2021-10-01",
-                },
-                {
-                  id: 21011,
-                  name: "Test6",
-                  type: "pdf",
-                  size: 512,
-                  date: "2020-01-01",
-                },
-                {
-                  id: 22200,
-                  name: "Test7",
-                  type: "js",
-                  size: 1024,
-                  date: "2021-06-01",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 23666,
-          name: "Test8",
-          type: "xlsx",
-          size: 2048,
-          date: "2020-11-01",
-          childs: [
-            {
-              id: 24300,
-              name: "Test3",
-              type: "avi",
-              size: 1024,
-              date: "2020-03-01",
-            },
-            {
-              id: 20045,
-              name: "vxe-table 从入门到放弃4",
-              type: "html",
-              size: 600,
-              date: "2021-04-01",
-            },
-            {
-              id: 10053,
-              name: "vxe-table 从入门到放弃96",
-              type: "avi",
-              size: null,
-              date: "2021-04-01",
-              childs: [
-                {
-                  id: 24330,
-                  name: "vxe-table 从入门到放弃5",
-                  type: "txt",
-                  size: 25,
-                  date: "2021-10-01",
-                },
-                {
-                  id: 21011,
-                  name: "Test6",
-                  type: "pdf",
-                  size: 512,
-                  date: "2020-01-01",
-                },
-                {
-                  id: 22200,
-                  name: "Test7",
-                  type: "js",
-                  size: 1024,
-                  date: "2021-06-01",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          id: 24555,
-          name: "vxe-table 从入门到放弃9",
-          type: "avi",
-          size: 224,
-          date: "2020-10-01",
-        },
-      ],
-      toolbarConfig: {
-        custom: true,
-        slots: {
-          buttons: "toolbar_buttons",
-        },
-      },
+      gridCols: [],
+      gridData: [],
+      loading: false,
     };
   },
   methods: {
-    toggleExpandChangeEvent({ row, expanded }) {
-      console.log("节点展开事件" + expanded);
+    loadData() {
+      this.loading = true;
+      console.time('tree');
+      this.$axios
+        .request({
+          url: "/getTreeData1",
+          method: "POST",
+        })
+        .then((resp) => {
+          if (resp.status === 200) {
+            this.gridData = resp.data;
+            // console.log('count gridData: ', resp.data);
+            this.$refs.xTree.loadData(resp.data);
+          } else {
+            this.$message.error("获取树形控件数据失败");
+          }
+        })
+        .catch((error) => {
+          this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
+          setTimeout(() => {
+            console.timeEnd('tree');
+            console.log('count: ', this.gridData.length);
+          });
+        });
     },
-    getTreeExpansionEvent() {
-      let treeExpandRecords = this.$refs.xTree.getTreeExpandRecords();
-      this.$XModal.alert(treeExpandRecords.length);
+    loadCols() {
+      this.$axios
+        .request({
+          url: "/getTreeCols1",
+          method: "POST",
+        })
+        .then((resp) => {
+          this.gridCols = resp.data;
+          // console.log('gridCols: ', resp.data);
+          this.$refs.xTree.loadColumn(resp.data);
+        })
+        .catch(() => {
+          this.gridCols = [];
+        });
+    },
+    toggleExpandChangeEvent({ expanded }) {
+      // console.log("节点展开事件" + expanded);
     },
     toggleTreeMethod({ expanded, row }) {
       if (expanded) {
@@ -205,44 +118,13 @@ export default {
       }
       return true;
     },
-    loadContentMethod({ row }) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          let childCols = XEUtils.sample(
-            [
-              { type: "seq", title: "Sequence" },
-              { field: "name", title: "Name" },
-              { field: "role", title: "Role" },
-              { field: "age", title: "Age" },
-              { field: "sex", title: "Sex" },
-            ],
-            XEUtils.random(3, 5)
-          );
-          let childData = XEUtils.sample(
-            [
-              { name: "TEST1", role: "Develop", age: 20, sex: "女" },
-              { name: "TEST2", role: "Develop", age: 22, sex: "女" },
-              { name: "TEST3", role: "Develop", age: 24, sex: "男" },
-              { name: "TEST4", role: "Develop", age: 26, sex: "女" },
-              { name: "TEST5", role: "Develop", age: 28, sex: "男" },
-              { name: "TEST6", role: "Develop", age: 30, sex: "男" },
-            ],
-            XEUtils.random(1, 5)
-          );
-          row.childCols = childCols;
-          row.childData = childData;
-          resolve();
-        }, 500);
-      });
-    },
   },
-  mounted() {},
+  mounted() {
+    this.loadCols();
+    this.loadData();
+  },
 };
 </script>
 
 <style lang="less">
-@import url("~@/styles/scrollbar.less");
-.app {
-  padding: 10px;
-}
 </style>
