@@ -18,6 +18,7 @@ export default {
 </script>
 
 <style lang="less">
+@import url('./styles/table.less');
 .app {
   display: flex;
   height: 100%;

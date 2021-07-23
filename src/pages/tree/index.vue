@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import '../../components/cell-render';
 import { Menu } from 'ant-design-vue';
 export default {
   name: "Tree",

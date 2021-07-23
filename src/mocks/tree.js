@@ -1,9 +1,9 @@
 import Mock from "mockjs";
 
-Mock.mock('/getTreeData', function(options) {
-  const { pageSize } = JSON.parse(options.body);
+Mock.mock("/getTreeData", function(options) {
+  console.log("options: ", options);
   return Mock.mock({
-    "list|20-50": [
+    "list|50-100": [
       {
         id: "@idVal",
         title: "@textVal",
@@ -25,29 +25,29 @@ Mock.mock('/getTreeData', function(options) {
         ip4: "@myip",
         ip5: "@myip",
 
-        status1: '@status',
-        status2: '@status',
-        status3: '@status',
-        status4: '@status',
-        status5: '@status',
+        status1: "@status",
+        status2: "@status",
+        status3: "@status",
+        status4: "@status",
+        status5: "@status",
 
-        website1: '@website',
-        website2: '@website',
-        website3: '@website',
-        website4: '@website',
-        website5: '@website',
+        website1: "@website",
+        website2: "@website",
+        website3: "@website",
+        website4: "@website",
+        website5: "@website",
 
-        email1: '@myemail',
-        email2: '@myemail',
-        email3: '@myemail',
-        email4: '@myemail',
-        email5: '@myemail',
+        email1: "@myemail",
+        email2: "@myemail",
+        email3: "@myemail",
+        email4: "@myemail",
+        email5: "@myemail",
 
-        brief1: '@brief',
-        brief2: '@brief',
-        brief3: '@brief',
-        brief4: '@brief',
-        brief5: '@brief',
+        brief1: "@brief",
+        brief2: "@brief",
+        brief3: "@brief",
+        brief4: "@brief",
+        brief5: "@brief",
 
         create1: "@date1Val",
         create2: "@date1Val",
@@ -86,76 +86,148 @@ Mock.mock('/getTreeData', function(options) {
         attachment5: "@attach2Val",
       },
     ],
-  }).list.slice(0, pageSize);
+  }).list;
 });
 
-Mock.mock('/getTreeCols', function(options) {
-  const { include } = JSON.parse(options.body);
+Mock.mock("/getTreeCols", function(options) {
+  console.log("options: ", options);
   const columns = [
-    { type: "seq", width: 50, align: "center" },
-    { type: "checkbox", width: 50, align: "center" },
-    { field: "title", title: "title", width: 150, showOverflow: true },
-    { field: "age", title: "age", minWidth: 150 },
+    { type: "seq", width: 80, align: "center", fixed: "left" },
+    {
+      field: "title",
+      title: "title",
+      width: 150,
+      showOverflow: "tooltip",
+      treeNode: true,
+    },
     {
       field: "datetime",
       title: "datetime",
       minWidth: 150,
-      params: { inChildGrid: false },
-      slots: { default: "datetime" },
+      cellRender: {
+        name: "datetime",
+      },
     },
     {
       field: "address",
       title: "address",
       minWidth: 150,
-      params: { inChildGrid: false },
-      slots: { default: "address" },
+      cellRender: {
+        name: "address",
+      },
     },
     {
       field: "organization",
       title: "organization",
       minWidth: 150,
-      params: { inChildGrid: false },
-      slots: { default: "organization" },
+      cellRender: {
+        name: "organization",
+      },
     },
     {
       field: "attachment",
       title: "attachment",
       minWidth: 150,
-      params: { inChildGrid: false },
-      slots: { default: "attachment" },
+      cellRender: {
+        name: "attachment",
+      },
     },
   ];
   // ip
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "ip" + (index + 1), title: "ip" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "ip" + (index + 1),
+      title: "ip" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // name
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "name" + (index + 1), title: "name" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "name" + (index + 1),
+      title: "name" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // status
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "status" + (index + 1), title: "status" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "status" + (index + 1),
+      title: "status" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // website
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "website" + (index + 1), title: "website" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "website" + (index + 1),
+      title: "website" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // brief
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "brief" + (index + 1), title: "brief" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "brief" + (index + 1),
+      title: "brief" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // email
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "email" + (index + 1), title: "email" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "email" + (index + 1),
+      title: "email" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // create
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "create" + (index + 1), title: "create" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "create" + (index + 1),
+      title: "create" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   // update
-  Array.from({length: 5}, (_, index) => index).forEach((index) => {
-    columns.push({ field: "update" + (index + 1), title: "update" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+  Array.from({ length: 5 }, (_, index) => index).forEach((index) => {
+    columns.push({
+      field: "update" + (index + 1),
+      title: "update" + (index + 1),
+      minWidth: 150,
+      showOverflow: true,
+      cellRender: {
+        name: "textbox",
+      },
+    });
   });
   return columns;
 });

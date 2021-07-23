@@ -1,7 +1,7 @@
 <template>
   <div class="custom-cell">
     <!-- 字表中展示 多行多列 -->
-    <ul v-if="col.params.inChildGrid" class="sub-row">
+    <ul v-if="col.params && col.params.inChildGrid" class="sub-row">
       <li v-for="(item, i) in colData" :key="i" class="sub-col">
         <template v-if="Array.isArray(item)">
           <span v-for="(elem, j) in item" :key="j">

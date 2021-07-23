@@ -2,6 +2,8 @@ import Mock from "mockjs";
 import './table';
 import './tree';
 
+const Random = Mock.Random;
+
 Mock.setup({
   timeout: '500-1000'
 });
