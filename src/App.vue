@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <div class="sidebar">
+      <router-link to="/tree" class="link">树形表格</router-link>
       <router-link to="/table" class="link">列表视图</router-link>
       <router-link to="/gantt" class="link">甘特图</router-link>
     </div>
