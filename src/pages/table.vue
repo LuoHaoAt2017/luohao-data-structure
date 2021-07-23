@@ -66,13 +66,11 @@ export default {
   data() {
     return {
       gridOptions: {
+        round: true,
         border: true,
         stripe: true,
         resizable: true,
         height: "850",
-        border: true,
-        round: true,
-        resizable: true,
         headerAlign: "center",
         align: "left",
         loading: false,
@@ -88,8 +86,8 @@ export default {
         },
         "scroll-y": {
           enabled: true,
-          // gt: 15,
-          // oSize: 20,
+          gt: 30,
+          oSize: 5,
         },
         toolbarConfig: {
           custom: true,
