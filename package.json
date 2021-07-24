@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "webpack-dev-server --open",
-    "build": "webpack --progress --watch",
+    "build": "webpack --progress",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
