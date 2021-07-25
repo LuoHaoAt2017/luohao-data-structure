@@ -21,6 +21,8 @@ export default {
       for (let attr in attrs) {
         if (attr === "innerHTML") {
           elem.innerHTML = attrs.innerHTML;
+        } else if (attr === "append_to") {
+          attrs.append_to.appendChild(elem);
         } else {
           elem.setAttribute(attr, attrs[attr]);
         }
@@ -52,6 +54,7 @@ export default {
           x2: 80 * this.cell_unit,
           y2: i * 10 * this.cell_unit,
           stroke: "black",
+          "stroke-width": 2,
         });
       }
       // 棋盘纵向线
@@ -62,6 +65,7 @@ export default {
           x2: j * 10 * this.cell_unit,
           y2: 90 * this.cell_unit,
           stroke: "black",
+          "stroke-width": 2,
         });
       }
       this.d_lines.push(
@@ -72,6 +76,7 @@ export default {
             x2: 5 * 10 * this.cell_unit,
             y2: 2 * 10 * this.cell_unit,
             stroke: "black",
+            "stroke-width": 2,
           },
           {
             x1: 5 * 10 * this.cell_unit,
@@ -79,6 +84,7 @@ export default {
             x2: 3 * 10 * this.cell_unit,
             y2: 2 * 10 * this.cell_unit,
             stroke: "black",
+            "stroke-width": 2,
           },
           {
             x1: 3 * 10 * this.cell_unit,
@@ -86,6 +92,7 @@ export default {
             x2: 5 * 10 * this.cell_unit,
             y2: 7 * 10 * this.cell_unit,
             stroke: "black",
+            "stroke-width": 2,
           },
           {
             x1: 5 * 10 * this.cell_unit,
@@ -93,6 +100,7 @@ export default {
             x2: 3 * 10 * this.cell_unit,
             y2: 7 * 10 * this.cell_unit,
             stroke: "black",
+            "stroke-width": 2,
           },
         ]
       );
@@ -106,27 +114,26 @@ export default {
         height: 10 * this.cell_unit,
         fill: "white",
         stroke: "black",
-        "stroke-width": 1,
+        "stroke-width": 2,
         class: "bank",
       });
       const chuText = this.create_svg("text", {
         x: 1.2 * 10 * this.cell_unit,
         y: 4.75 * 10 * this.cell_unit,
         stroke: "red",
-        fill: 'red',
+        fill: "red",
         innerHTML: "楚",
-        'font-size': 48,
-        'font-family': "NSimSun"
+        "font-size": 48,
+        "font-family": "NSimSun",
       });
       const heText = this.create_svg("text", {
         x: 2.2 * 10 * this.cell_unit,
         y: 4.75 * 10 * this.cell_unit,
-        fontSize: 50,
-        fill: 'red',
+        fill: "red",
         stroke: "red",
         innerHTML: "河",
-        'font-size': 48,
-        'font-family': "NSimSun"
+        "font-size": 48,
+        "font-family": "NSimSun",
       });
       const hanText = this.create_svg("text", {
         x: 6.8 * 10 * this.cell_unit,
@@ -134,8 +141,8 @@ export default {
         rotate: 180,
         stroke: "black",
         innerHTML: "汉",
-        'font-size': 48,
-        'font-family': "NSimSun"
+        "font-size": 48,
+        "font-family": "NSimSun",
       });
       const jieText = this.create_svg("text", {
         x: 5.8 * 10 * this.cell_unit,
@@ -143,7 +150,7 @@ export default {
         rotate: 180,
         stroke: "black",
         innerHTML: "界",
-        'font-size': 48,
+        "font-size": 48,
       });
       this.$svg.append(elem);
       this.$svg.append(chuText);
@@ -155,6 +162,112 @@ export default {
       this.draw_h_lines();
       this.draw_v_lines();
       this.draw_d_lines();
+    },
+    draw_ancher() {
+      // 棋盘中的辅助锚点
+      const points = [
+        {
+          px: 1 * 10 * this.cell_unit,
+          py: 2 * 10 * this.cell_unit,
+        },
+        {
+          px: 7 * 10 * this.cell_unit,
+          py: 2 * 10 * this.cell_unit,
+        },
+        {
+          px: 0 * 10 * this.cell_unit,
+          py: 3 * 10 * this.cell_unit,
+        },
+        {
+          px: 2 * 10 * this.cell_unit,
+          py: 3 * 10 * this.cell_unit,
+        },
+        {
+          px: 4 * 10 * this.cell_unit,
+          py: 3 * 10 * this.cell_unit,
+        },
+        {
+          px: 6 * 10 * this.cell_unit,
+          py: 3 * 10 * this.cell_unit,
+        },
+        {
+          px: 8 * 10 * this.cell_unit,
+          py: 3 * 10 * this.cell_unit,
+        },
+        {
+          px: 0 * 10 * this.cell_unit,
+          py: 6 * 10 * this.cell_unit,
+        },
+        {
+          px: 2 * 10 * this.cell_unit,
+          py: 6 * 10 * this.cell_unit,
+        },
+        {
+          px: 4 * 10 * this.cell_unit,
+          py: 6 * 10 * this.cell_unit,
+        },
+        {
+          px: 6 * 10 * this.cell_unit,
+          py: 6 * 10 * this.cell_unit,
+        },
+        {
+          px: 8 * 10 * this.cell_unit,
+          py: 6 * 10 * this.cell_unit,
+        },
+        {
+          px: 1 * 10 * this.cell_unit,
+          py: 7 * 10 * this.cell_unit,
+        },
+        {
+          px: 7 * 10 * this.cell_unit,
+          py: 7 * 10 * this.cell_unit,
+        },
+      ];
+      points.forEach((point) => {
+        const { px, py } = point;
+        const delta = 1 * 10 * 0.1 * this.cell_unit;
+        const quarter = 0.1 * 10 * this.cell_unit;
+        this.create_svg("path", {
+          d: `
+            M ${px - delta} ${py - delta - quarter}
+            A ${quarter} ${quarter} 0 0 1 ${px - delta - quarter} ${py - delta}
+          `,
+          fill: "none",
+          stroke: "black",
+          "stroke-width": 2,
+          append_to: this.$svg,
+        });
+        this.create_svg("path", {
+          d: `
+            M ${px + delta} ${py - delta - quarter}
+            A ${quarter} ${quarter} 0 0 0 ${px + delta + quarter} ${py - delta}
+          `,
+          fill: "none",
+          stroke: "black",
+          "stroke-width": 2,
+          append_to: this.$svg,
+        });
+        this.create_svg("path", {
+          d: `
+            M ${px - delta} ${py + delta + quarter}
+            A ${quarter} ${quarter} 0 0 0 ${px - delta - quarter} ${py + delta}
+          `,
+          fill: "none",
+          stroke: "black",
+          "stroke-width": 2,
+          append_to: this.$svg,
+        });
+        this.create_svg("path", {
+          d: `
+            M ${px + delta} ${py + delta + quarter}
+            A ${quarter} ${quarter} 0 0 1 ${px + delta + quarter} ${py + delta}
+          `,
+          fill: "none",
+          stroke: "black",
+          "stroke-width": 2,
+          append_to: this.$svg,
+        });
+      });
     },
     draw_h_lines() {
       this.h_lines.forEach((line) => {
@@ -190,9 +303,10 @@ export default {
         `,
         fill: "none", // 禁止充填
         stroke: "black",
-        "stroke-width": 2,
+        "stroke-width": 4,
       });
       this.draw_lines();
+      this.draw_ancher();
       this.draw_river();
       this.$svg.appendChild(rect);
       const board = document.querySelector("#board");
