@@ -288,6 +288,63 @@ export default {
         this.$svg.appendChild(elem);
       });
     },
+    draw_chesses() {
+      const items = [
+        {
+          px: 1 * 10 * this.cell_unit,
+          py: 2 * 10 * this.cell_unit,
+          radius: 25,
+          text: "炮",
+          fill: "black",
+          stroke: "black",
+        },
+        {
+          px: 7 * 10 * this.cell_unit,
+          py: 2 * 10 * this.cell_unit,
+          radius: 25,
+          text: "炮",
+          fill: "black",
+          stroke: "black",
+        },
+
+        {
+          px: 1 * 10 * this.cell_unit,
+          py: 7 * 10 * this.cell_unit,
+          radius: 25,
+          text: "炮",
+          fill: "red",
+          stroke: "red",
+        },
+        {
+          px: 7 * 10 * this.cell_unit,
+          py: 7 * 10 * this.cell_unit,
+          radius: 25,
+          text: "炮",
+          fill: "red",
+          stroke: "red",
+        },
+      ];
+      items.forEach((point) => {
+        const elem = this.create_svg("circle", {
+          cx: point.px,
+          cy: point.py,
+          r: point.radius,
+          fill: "#fff",
+          stroke: point.stroke,
+          "stroke-width": 2,
+        });
+        const text = this.create_svg("text", {
+          innerHTML: point.text,
+          stroke: point.stroke,
+          fill: point.fill,
+          "font-size": 32,
+          x: point.px - 2 * this.cell_unit,
+          y: point.py + 1.25 * this.cell_unit,
+        });
+        this.$svg.appendChild(elem);
+        this.$svg.appendChild(text);
+      });
+    },
     render_chess() {
       this.$svg = this.create_svg("svg", {
         width: 640,
@@ -308,6 +365,7 @@ export default {
       this.draw_lines();
       this.draw_ancher();
       this.draw_river();
+      this.draw_chesses();
       this.$svg.appendChild(rect);
       const board = document.querySelector("#board");
       board && board.appendChild(this.$svg);
