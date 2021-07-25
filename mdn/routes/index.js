@@ -11,8 +11,12 @@ export default new VueRouter({
       component: () => import('../pages/home.vue')
     },
     {
+      path: '/chess',
+      component: () => import('../pages/chess.vue')
+    },
+    {
       path: '/',
-      redirect: '/home'
+      redirect: '/chess'
     },
   ]
 });

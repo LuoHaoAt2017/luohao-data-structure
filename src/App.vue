@@ -4,6 +4,7 @@
       <router-link to="/tree" class="link">树形表格</router-link>
       <router-link to="/table" class="link">列表视图</router-link>
       <router-link to="/gantt" class="link">甘特图</router-link>
+      <a class="link" @click="gotoSvg">SVG奇思妙想</a>
     </div>
     <div class="content">
       <router-view></router-view>
@@ -14,6 +15,11 @@
 <script>
 export default {
   name: "App",
+  methods: {
+    gotoSvg() {
+      window.location.href = window.origin + '/mdn.html'
+    }
+  }
 };
 </script>
 
