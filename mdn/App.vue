@@ -3,6 +3,7 @@
     <div class="sidebar">
       <router-link to="/home" class="link">首页</router-link>
       <router-link to="/chess" class="link">棋盘</router-link>
+      <a class="link" @click="gotoGantt">甘特图</a>
     </div>
     <div class="content">
       <router-view></router-view>
@@ -13,6 +14,11 @@
 <script>
 export default {
   name: "App",
+  methods: {
+    gotoGantt() {
+      window.location.href = window.origin + '/index.html#/gantt'
+    }
+  }
 };
 </script>
 
@@ -29,6 +35,7 @@ export default {
       display: block;
       padding: 10px;
       border-bottom: 1px solid #ccc;
+      cursor: pointer;
     }
   }
   .content {
