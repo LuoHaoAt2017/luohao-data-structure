@@ -8,29 +8,8 @@
       :columns="gridCols"
     >
       <template #toolbar_buttons>
-        <!-- <vxe-button @click="onAction(1)">行高相等</vxe-button>
-        <vxe-button @click="onAction(2)">行高不等</vxe-button> -->
         <vxe-button @click="onAction(3)">刷新</vxe-button>
         <vxe-button @click="onAction(4)">重载</vxe-button>
-      </template>
-      <template #textbox="{ row, column }">
-        <custom-textbox :row="row" :col="column"></custom-textbox>
-      </template>
-      <template #address="{ row, column }">
-        <custom-address :row="row" :col="column"></custom-address>
-      </template>
-      <template #attachment="{ row, column }">
-        <custom-attachment :row="row" :col="column"></custom-attachment>
-      </template>
-      <template #datetime="{ row, column }">
-        <custom-datetime :row="row" :col="column"></custom-datetime>
-      </template>
-      <template #organization="{ row, column, rowIndex }">
-        <custom-organization
-          :row="row"
-          :rowIndex="rowIndex"
-          :col="column"
-        ></custom-organization>
       </template>
       <template #pager>
         <vxe-pager
@@ -49,20 +28,8 @@
 </template>
 
 <script>
-import CustomTextbox from "../components/textbox.vue";
-import CustomAddress from "../components/address.vue";
-import CustomAttachment from "../components/attachment.vue";
-import CustomDatetime from "../components/datetime.vue";
-import CustomOrganization from "../components/organization.vue";
 export default {
   name: "Table",
-  components: {
-    CustomTextbox,
-    CustomAddress,
-    CustomAttachment,
-    CustomDatetime,
-    CustomOrganization,
-  },
   data() {
     return {
       gridOptions: {
@@ -77,7 +44,7 @@ export default {
         align: "left",
         loading: false,
         highlightHoverRow: true,
-        showOverflow: false, // 'tooltip'
+        showOverflow: false,  // false
         showHeaderOverflow: true, // 设置表头所有内容过长时显示为省略号
         showHeader: true,
         showFooter: false,
@@ -132,7 +99,7 @@ export default {
       ],
       gridCols: [],
       gridData: [],
-      loading: false
+      loading: false,
     };
   },
   methods: {
@@ -154,51 +121,58 @@ export default {
           break;
       }
     },
-    loadData({ pageSize } = { pageSize: 90 }, callback) {
+    loadData({ pageSize } = { pageSize: 20 }, callback) {
       this.loading = true;
-      console.time('data');
-      console.time('request');
-      this.$axios.request({
-        url: '/getTableData',
-        method: 'POST',
-        data: {
-          pageSize: pageSize
-        }
-      }).then((resp) => {
-        console.timeEnd('request');
-        if (resp.status === 200) {
-          this.gridData = resp.data;
-          this.gridPage.total = 500;
-        } else {
-          this.$message.error('获取列表数据失败');
-        }
-      }).catch((error) => {
-        this.$message.error(error);
-      }).finally(() => {
-        this.loading = false;
-        console.timeEnd('data');
-        setTimeout(() => {
-          callback && callback();
+      console.time("data");
+      console.time("request");
+      this.$axios
+        .request({
+          url: "/getTableData1",
+          method: "POST",
+          data: {
+            pageSize: pageSize,
+          },
+        })
+        .then((resp) => {
+          console.timeEnd("request");
+          if (resp.status === 200) {
+            this.gridData = resp.data;
+            this.gridPage.total = 500;
+          } else {
+            this.$message.error("获取列表数据失败");
+          }
+        })
+        .catch((error) => {
+          this.$message.error(error);
+        })
+        .finally(() => {
+          this.loading = false;
+          console.timeEnd("data");
+          setTimeout(() => {
+            callback && callback();
+          });
         });
-      });
     },
     loadCols() {
-      console.time('cols');
+      console.time("cols");
       return new Promise((resolve) => {
-        this.$axios.request({
-          url: '/getTableCols',
-          method: 'POST',
-          data: {
-            include: true
-          }
-        }).then((resp) => {
-          this.gridCols = resp.data;
-          resolve(true);
-        }).catch(() => {
-          this.gridCols = [];
-          console.timeEnd('cols');
-          resolve(false);
-        });
+        this.$axios
+          .request({
+            url: "/getTableCols1",
+            method: "POST",
+            data: {
+              include: true,
+            },
+          })
+          .then((resp) => {
+            this.gridCols = resp.data;
+            resolve(true);
+          })
+          .catch(() => {
+            this.gridCols = [];
+            console.timeEnd("cols");
+            resolve(false);
+          });
       });
     },
     onChange({ currentPage, pageSize }) {
@@ -211,13 +185,13 @@ export default {
       });
     },
     forceLoad() {
-      console.time('total');
+      console.time("total");
       this.loadCols().then(() => {
         this.loadData({ pageSize: 20 }, () => {
-          console.timeEnd('total');
+          console.timeEnd("total");
         });
       });
-    }
+    },
   },
   mounted() {
     this.forceLoad();
