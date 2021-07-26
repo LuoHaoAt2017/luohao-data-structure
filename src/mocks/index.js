@@ -1,6 +1,7 @@
 import Mock from "mockjs";
 import './table';
 import './tree';
+import './test';
 
 const Random = Mock.Random;
 

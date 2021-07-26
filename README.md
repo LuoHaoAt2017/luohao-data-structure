@@ -1,5 +1,8 @@
 # luohao-gantt
 个人甘特图
 
-列表列字段数量必须控制在10个左右。
-先序遍历展开第一条数据的所有第一个后代。
+排除赋值效率问题
+排除自定义模版
+
+<a href="https://github.com/jamiebuilds/babel-handbook/tree/master/translations/zh-Hans">
+babel-handbook</a>

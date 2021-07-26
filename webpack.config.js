@@ -10,12 +10,15 @@ function resolve(params) {
 
 module.exports = {
   mode: 'development',
-  entry: resolve("src/index.js"),
+  entry: {
+    index: resolve("src/index.js"),
+    mdn: resolve('mdn/index.js')
+  },
   output: {
-    filename: "index.js",
+    filename: "[name].js",
     path: resolve("dist"),
-    library: "luohao-gantt",
-    libraryTarget: "umd",
+    // library: "luohao-gantt",
+    // libraryTarget: "umd",
   },
   module: {
     rules: [
@@ -44,22 +47,33 @@ module.exports = {
   resolve: {
     alias: {
       "@": resolve("src"),
-      "gantt": resolve("./gantt/index.js")
+      "gantt": resolve("./lib/gantt/index.js")
     },
     extensions: [".js", ".vue"],
   },
   plugins: [
     new Webpackbar(),
     new VueLoaderPlugin(),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: '从0到1开发甘特图',
+      filename: 'index.html',
       template: resolve('./public/index.html'),
       favicon: resolve('./public/favicon.ico'),
+      chunks: ['index']
     }),
-    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'SVG教程',
+      filename: 'mdn.html',
+      template: resolve('./public/index.html'),
+      favicon: resolve('./public/favicon.ico'),
+      chunks: ['mdn']
+    }),
   ],
   devServer: {
     compress: true,
     port: 9000,
+    open: true,
+    openPage: 'index.html'
   },
 };

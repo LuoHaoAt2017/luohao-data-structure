@@ -1,12 +1,9 @@
 <template>
   <div class="app">
     <div class="sidebar">
-      <router-link to="/tree" class="link">树形表格</router-link>
-      <router-link to="/table" class="link">列表视图</router-link>
-      <router-link to="/gantt" class="link">甘特图</router-link>
-      <router-link to="/assign" class="link">不使用自定义模版</router-link>
-      <router-link to="/analysis" class="link">性能分析</router-link>
-      <a class="link" @click="gotoSvg">SVG奇思妙想</a>
+      <router-link to="/home" class="link">首页</router-link>
+      <router-link to="/chess" class="link">棋盘</router-link>
+      <a class="link" @click="gotoGantt">甘特图</a>
     </div>
     <div class="content">
       <router-view></router-view>
@@ -18,15 +15,14 @@
 export default {
   name: "App",
   methods: {
-    gotoSvg() {
-      window.location.href = window.origin + '/mdn.html'
+    gotoGantt() {
+      window.location.href = window.origin + '/index.html#/gantt'
     }
   }
 };
 </script>
 
 <style lang="less">
-@import url('./styles/table.less');
 .app {
   display: flex;
   height: 100%;
@@ -37,9 +33,9 @@ export default {
     border-right: 1px solid #ccc;
     .link {
       display: block;
-      width: 100%;
       padding: 10px;
       border-bottom: 1px solid #ccc;
+      cursor: pointer;
     }
   }
   .content {

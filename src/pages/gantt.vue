@@ -87,7 +87,7 @@ export default {
         // bar_corner_radius: 3,
         // arrow_curve: 5,
         // padding: 18,
-        // view_mode: "Day",
+        view_mode: "Day", // view_modes: ["Day", "Week", "Month"],
         // date_format: "YYYY-MM-DD",
         // custom_popup_html: function (task) {
         //   // the task object will contain the updated

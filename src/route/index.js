@@ -15,6 +15,14 @@ export default new VueRouter({
       component: () => import("../pages/gantt.vue"),
     },
     {
+      path: "/assign",
+      component: () => import("../pages/assign.vue"),
+    },
+    {
+      path: "/analysis",
+      component: () => import("../pages/analysis.vue"),
+    },
+    {
       path: "/tree",
       component: () => import("../pages/tree/index.vue"),
       children: [
@@ -34,7 +42,7 @@ export default new VueRouter({
     },
     {
       path: "/",
-      redirect: "/tree",
+      redirect: "/analysis",
     },
   ],
 });

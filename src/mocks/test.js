@@ -1,6 +1,6 @@
 import Mock from "mockjs";
 
-Mock.mock('/getTableData', function(options) {
+Mock.mock('/getTableData1', function(options) {
   const { pageSize } = JSON.parse(options.body);
   return Mock.mock({
     "list|100": [
@@ -89,7 +89,7 @@ Mock.mock('/getTableData', function(options) {
   }).list.slice(0, pageSize);
 });
 
-Mock.mock('/getTableCols', function(options) {
+Mock.mock('/getTableCols1', function(options) {
   const { include } = JSON.parse(options.body);
   const columns = [
     { type: "seq", width: 50, align: "center" },
@@ -101,28 +101,24 @@ Mock.mock('/getTableCols', function(options) {
       title: "datetime",
       minWidth: 150,
       params: { inChildGrid: false },
-      slots: { default: "datetime" },
     },
     {
       field: "address",
       title: "address",
       minWidth: 150,
       params: { inChildGrid: false },
-      slots: { default: "address" },
     },
     {
       field: "organization",
       title: "organization",
       minWidth: 150,
       params: { inChildGrid: false },
-      slots: { default: "organization" },
     },
     {
       field: "attachment",
       title: "attachment",
       minWidth: 150,
       params: { inChildGrid: false },
-      slots: { default: "attachment" },
     },
     {
       title: "子表信息",
@@ -132,140 +128,120 @@ Mock.mock('/getTableCols', function(options) {
           title: "datetime1",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "datetime" },
         },
         {
           field: "datetime2",
           title: "datetime2",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "datetime" },
         },
         {
           field: "datetime3",
           title: "datetime3",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "datetime" },
         },
         {
           field: "datetime4",
           title: "datetime4",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "datetime" },
         },
         {
           field: "datetime5",
           title: "datetime5",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "datetime" },
         },
         {
           field: "address1",
           title: "address1",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "address" },
         },
         {
           field: "address2",
           title: "address2",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "address" },
         },
         {
           field: "address3",
           title: "address3",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "address" },
         },
         {
           field: "address4",
           title: "address4",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "address" },
         },
         {
           field: "address5",
           title: "address5",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "address" },
         },
         {
           field: "organization1",
           title: "organization1",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "organization" },
         },
         {
           field: "organization2",
           title: "organization2",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "organization" },
         },
         {
           field: "organization3",
           title: "organization3",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "organization" },
         },
         {
           field: "organization4",
           title: "organization4",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "organization" },
         },
         {
           field: "organization5",
           title: "organization5",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "organization" },
         },
         {
           field: "attachment1",
           title: "attachment1",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "attachment" },
         },
         {
           field: "attachment2",
           title: "attachment2",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "attachment" },
         },
         {
           field: "attachment3",
           title: "attachment3",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "attachment" },
         },
         {
           field: "attachment4",
           title: "attachment4",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "attachment" },
         },
         {
           field: "attachment5",
           title: "attachment5",
           minWidth: 150,
           params: { inChildGrid: true },
-          slots: { default: "attachment" },
         },
       ],
     },
@@ -273,35 +249,35 @@ Mock.mock('/getTableCols', function(options) {
   if (include) {
     // ip
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "ip" + (index + 1), title: "ip" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "ip" + (index + 1), title: "ip" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // name
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "name" + (index + 1), title: "name" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "name" + (index + 1), title: "name" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // status
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "status" + (index + 1), title: "status" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "status" + (index + 1), title: "status" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // website
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "website" + (index + 1), title: "website" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "website" + (index + 1), title: "website" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // brief
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "brief" + (index + 1), title: "brief" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "brief" + (index + 1), title: "brief" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // email
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "email" + (index + 1), title: "email" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "email" + (index + 1), title: "email" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // create
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "create" + (index + 1), title: "create" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "create" + (index + 1), title: "create" + (index + 1), minWidth: 150, showOverflow: true });
     });
     // update
     Array.from({length: 5}, (_, index) => index).forEach((index) => {
-      columns.push({ field: "update" + (index + 1), title: "update" + (index + 1), minWidth: 150, showOverflow: true, slots: {default: 'textbox'} });
+      columns.push({ field: "update" + (index + 1), title: "update" + (index + 1), minWidth: 150, showOverflow: true });
     });
   }
   return columns;
