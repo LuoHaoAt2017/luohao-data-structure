@@ -1,5 +1,6 @@
 import Mock from "mockjs";
 import './table';
+import './table-sup';
 import './tree';
 import './test';
 
