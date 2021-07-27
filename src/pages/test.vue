@@ -150,18 +150,15 @@ export default {
           break;
       }
     },
-    loadData({ pageSize } = { pageSize: 10 }, callback) {
+    loadData({ pageSize } = { pageSize: 90 }, callback) {
       this.loading = true;
-      console.time('data');
-      console.time('request');
       this.$axios.request({
-        url: '/getTableData2',
+        url: '/getTableData4',
         method: 'POST',
         data: {
           pageSize: pageSize
         }
       }).then((resp) => {
-        console.timeEnd('request');
         if (resp.status === 200) {
           this.gridData = resp.data;
           this.gridPage.total = 500;
@@ -172,17 +169,15 @@ export default {
         this.$message.error(error);
       }).finally(() => {
         this.loading = false;
-        console.timeEnd('data');
         setTimeout(() => {
           callback && callback();
         });
       });
     },
     loadCols() {
-      console.time('cols');
       return new Promise((resolve) => {
         this.$axios.request({
-          url: '/getTableCols2',
+          url: '/getTableCols4',
           method: 'POST',
           data: {
             include: true
@@ -192,7 +187,6 @@ export default {
           resolve(true);
         }).catch(() => {
           this.gridCols = [];
-          console.timeEnd('cols');
           resolve(false);
         });
       });

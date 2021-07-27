@@ -11,8 +11,16 @@ export default new VueRouter({
       component: () => import("../pages/table.vue"),
     },
     {
-      path: "/table-sup",
-      component: () => import("../pages/table-sup.vue"),
+      path: "/test",
+      component: () => import("../pages/test.vue"),
+    },
+    {
+      path: "/test2",
+      component: () => import("../pages/test2.vue"),
+    },
+    {
+      path: "/test3",
+      component: () => import("../pages/test3.vue"),
     },
     {
       path: "/gantt",

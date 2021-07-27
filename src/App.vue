@@ -3,8 +3,10 @@
     <div class="sidebar">
       <router-link to="/tree" class="link">树形表格</router-link>
       <router-link to="/gantt" class="link">甘特图</router-link>
-      <router-link to="/table" class="link">含有子表的列表视图</router-link>
-      <router-link to="/table-sup" class="link">没有子表的列表视图</router-link>
+      <router-link to="/table" class="link">列表视图</router-link>
+      <router-link to="/test" class="link">列表测试1</router-link>
+      <router-link to="/test2" class="link">列表测试2</router-link>
+      <router-link to="/test3" class="link">列表测试3</router-link>
       <router-link to="/assign" class="link">没有自定义模版的列表</router-link>
       <router-link to="/analysis" class="link">列表性能分析汇总</router-link>
       <a class="link" @click="gotoSvg">SVG奇思妙想</a>
