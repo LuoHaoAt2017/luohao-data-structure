@@ -6,3 +6,5 @@
 
 <a href="https://github.com/jamiebuilds/babel-handbook/tree/master/translations/zh-Hans">
 babel-handbook</a>
+
+注意代码提交规范
