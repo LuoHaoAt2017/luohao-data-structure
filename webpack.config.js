@@ -49,7 +49,7 @@ module.exports = {
   resolve: {
     alias: {
       "@": resolve("src"),
-      gantt: resolve("./lib/gantt/index.js"),
+      gantt: resolve("./libs/gantt/index.js"),
     },
     extensions: [".js", ".ts", ".vue"],
   },

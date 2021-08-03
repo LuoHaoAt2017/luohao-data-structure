@@ -7,7 +7,7 @@ import fetch from './utils/fetch';
 import 'xe-utils';
 import 'ant-design-vue/dist/antd.css';
 import 'vxe-table/lib/style.css';
-import '../../lib/gantt/gantt.scss';
+import '../../libs/gantt/gantt.scss';
 import './mocks/index'; // mock拦截请求
 
 import { message } from 'ant-design-vue';

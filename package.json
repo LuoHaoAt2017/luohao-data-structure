@@ -4,8 +4,8 @@
   "description": "甘特图",
   "main": "index.js",
   "scripts": {
-    "serve": "webpack-dev-server --open",
-    "build": "webpack --progress",
+    "serve": "webpack-dev-server --config webpack.config.dev",
+    "build": "webpack --progress --config webpack.config.prod",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "commit": "git cz"

@@ -16,7 +16,7 @@ export default new VueRouter({
     },
     {
       path: '/',
-      redirect: '/about'
+      redirect: '/home'
     },
   ]
 });

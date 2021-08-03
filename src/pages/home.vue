@@ -11,10 +11,16 @@ export default {
     }
   },
   methods: {
-
   },
   created() {
-
+    this.$axios.request({
+      url: '/getDepartment',
+      method: 'POST'
+    }).then((res) => {
+      console.table(res.data);
+    }).catch((err) => {
+      console.error(err);
+    });
   },
   mounted() {
   }

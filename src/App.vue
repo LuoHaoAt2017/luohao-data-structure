@@ -2,7 +2,7 @@
   <div class="app">
     <div class="sidebar">
       <router-link to="/home" class="link">首页</router-link>
-      <router-link to="/chess" class="link">其它</router-link>
+      <router-link to="/about" class="link">其它</router-link>
     </div>
     <div class="content">
       <router-view></router-view>
