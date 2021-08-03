@@ -1,7 +1,7 @@
 const path = require("path");
-const Webpackbar = require('webpackbar');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const Webpackbar = require("webpackbar");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
 
 function resolve(params) {
@@ -9,17 +9,14 @@ function resolve(params) {
 }
 
 module.exports = {
-  mode: 'development',
   entry: {
     index: resolve("src/index.js"),
-    table: resolve('modules/table/index.js'),
-    chess: resolve('modules/chess/index.js'),
+    gantt: resolve("modules/gantt/index.js"),
+    chess: resolve("modules/chess/index.js"),
   },
   output: {
     filename: "[name].js",
     path: resolve("dist"),
-    // library: "luohao-gantt",
-    // libraryTarget: "umd",
   },
   module: {
     rules: [
@@ -30,6 +27,10 @@ module.exports = {
       {
         test: /\.js$/,
         loader: "babel-loader",
+      },
+      { 
+        test: /\.ts$/, 
+        loader: "ts-loader" 
       },
       {
         test: /\.(scss)$/,
@@ -48,33 +49,34 @@ module.exports = {
   resolve: {
     alias: {
       "@": resolve("src"),
-      "gantt": resolve("./lib/gantt/index.js")
+      gantt: resolve("./lib/gantt/index.js"),
     },
-    extensions: [".js", ".vue"],
+    extensions: [".js", ".ts", ".vue"],
   },
   plugins: [
     new Webpackbar(),
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: '从0到1开发甘特图',
-      filename: 'index.html',
-      template: resolve('./public/index.html'),
-      favicon: resolve('./public/favicon.ico'),
-      chunks: ['index']
+      title: "SVG乐园",
+      filename: "chess.html",
+      template: resolve("./public/index.html"),
+      favicon: resolve("./public/favicon.ico"),
+      chunks: ["chess"],
     }),
     new HtmlWebpackPlugin({
-      title: 'SVG教程',
-      filename: 'table.html',
-      template: resolve('./public/index.html'),
-      favicon: resolve('./public/favicon.ico'),
-      chunks: ['table']
+      title: "从0到1开发甘特图",
+      filename: "gantt.html",
+      template: resolve("./public/index.html"),
+      favicon: resolve("./public/favicon.ico"),
+      chunks: ["gantt"],
+    }),
+    new HtmlWebpackPlugin({
+      title: "数据结构",
+      filename: "index.html",
+      template: resolve("./public/index.html"),
+      favicon: resolve("./public/favicon.ico"),
+      chunks: ["index"],
     }),
   ],
-  devServer: {
-    compress: true,
-    port: 9000,
-    open: true,
-    openPage: 'index.html'
-  },
 };
