@@ -12,7 +12,8 @@ module.exports = {
   mode: 'development',
   entry: {
     index: resolve("src/index.js"),
-    mdn: resolve('mdn/index.js')
+    table: resolve('modules/table/index.js'),
+    chess: resolve('modules/chess/index.js'),
   },
   output: {
     filename: "[name].js",
@@ -64,10 +65,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       title: 'SVG教程',
-      filename: 'mdn.html',
+      filename: 'table.html',
       template: resolve('./public/index.html'),
       favicon: resolve('./public/favicon.ico'),
-      chunks: ['mdn']
+      chunks: ['table']
     }),
   ],
   devServer: {
