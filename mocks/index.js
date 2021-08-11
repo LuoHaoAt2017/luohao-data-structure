@@ -72,6 +72,11 @@ Mock.mock("/getSubject", function() {
       objectId: '0014',
       name: '相对论',
       parentId: '0007'
+    },
+    {
+      objectId: '0015',
+      name: '人文学说',
+      parentId: ''
     }
   ];
   return columns;

@@ -1,45 +1,20 @@
-import { cloneDeep } from 'lodash';
 
-function Tree(options) {
-  this.nodes = options.data;
+function Tree(options = {}) {
+  this.nodes = options.data || [];
   this.objectId = options.objectId || 'objectId';
   this.parentId = options.parentId || 'parentId';
-  this.tree = [];
-  this.format();
 }
 
-Tree.prototype.format = function() {
-  const nodes = this.nodes;
-  for(let i = 0; i < nodes.length; i++) {
-    if (!nodes[i].parentId) {
-      const node = cloneDeep(nodes[i]);
-      this.collect(node, i);
-      this.tree.push(node);
-    }
-  }
-  console.log('nodes: ', nodes);
+// 先序遍历
+Tree.prototype.preOrder = function() {
 }
 
-Tree.prototype.collect = function(node) {
-  const oid = this.objectId;
-  const pid = this.parentId;
-  for(let i = 0; i < this.nodes.length; i++) {
-    const curItem = this.nodes[i];
-    if (node[oid] === curItem[pid]) {
-      if (node[oid] !== curItem[oid]) {
-        const childNode = cloneDeep(curItem);
-        this.collect(childNode);
-        if (!node.children) {
-          node.children = [];
-        }
-        node.children.push(childNode);
-      }
-    }
-  }
+// 后序遍历
+Tree.prototype.postOrder = function() {
 }
 
-Tree.prototype.getData = function() {
-  return this.tree;
+// 层次遍历
+Tree.prototype.levelOrder = function() {
 }
 
 export default Tree;

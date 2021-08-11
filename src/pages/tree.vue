@@ -12,6 +12,13 @@ export default {
   methods: {
   },
   created() {
+    this.$axios.request({
+      url: '/getSubject',
+      method: 'POST'
+    }).then((res) => {
+    }).catch((err) => {
+      console.error(err);
+    });
   },
 }
 </script>

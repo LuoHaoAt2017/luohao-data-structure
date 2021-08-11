@@ -15,8 +15,12 @@ export default new VueRouter({
       component: () => import('../pages/about.vue')
     },
     {
+      path: '/tree',
+      component: () => import('../pages/tree.vue')
+    },
+    {
       path: '/',
-      redirect: '/home'
+      redirect: '/tree'
     },
   ]
 });

@@ -1,12 +1,10 @@
 <template>
   <div class="app">
-    <div class="sidebar">
+    <!-- <div class="sidebar">
       <router-link to="/home" class="link">首页</router-link>
       <router-link to="/about" class="link">其它</router-link>
-    </div>
-    <div class="content">
-      <router-view></router-view>
-    </div>
+    </div> -->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,9 +13,9 @@ export default {
   name: "App",
   methods: {
     gotoGantt() {
-      window.location.href = window.origin + '/index.html#/'
-    }
-  }
+      window.location.href = window.origin + "/index.html#/";
+    },
+  },
 };
 </script>
 
