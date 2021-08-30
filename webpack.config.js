@@ -11,6 +11,7 @@ function resolve(params) {
 module.exports = {
   entry: {
     index: resolve("src/index.js"),
+    algorithms: resolve("modules/algorithms/index.js"),
     gantt: resolve("modules/gantt/index.js"),
     chess: resolve("modules/chess/index.js"),
   },
@@ -72,11 +73,11 @@ module.exports = {
       chunks: ["gantt"],
     }),
     new HtmlWebpackPlugin({
-      title: "数据结构",
+      title: "数据结构和算法",
       filename: "index.html",
       template: resolve("./public/index.html"),
       favicon: resolve("./public/favicon.ico"),
-      chunks: ["index"],
+      chunks: ["algorithms"],
     }),
   ],
 };

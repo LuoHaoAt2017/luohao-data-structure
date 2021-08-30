@@ -1,14 +1,15 @@
 {
-  "name": "luohao-gantt",
+  "name": "luohao-data-structure",
   "version": "1.0.0",
-  "description": "甘特图",
+  "description": "数据结构和算法",
   "main": "index.js",
   "scripts": {
     "serve": "webpack-dev-server --config webpack.config.dev",
     "build": "webpack --progress --config webpack.config.prod",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "commit": "git cz"
+    "commit": "git cz",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@antv/g2": "^4.1.21",

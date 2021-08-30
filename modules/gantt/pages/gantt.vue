@@ -127,5 +127,5 @@ export default {
 </script>
 
 <style lang="less">
-@import url("~@/styles/scrollbar.less");
+@import url("../styles/scrollbar.less");
 </style>
