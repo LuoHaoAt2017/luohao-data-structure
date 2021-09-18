@@ -12,7 +12,6 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "@antv/g2": "^4.1.21",
     "ant-design-vue": "^1.7.6",
     "axios": "^0.21.1",
     "deepmerge": "^4.2.2",
@@ -71,7 +70,7 @@
   "author": "LuoHao",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/LuoHaoAt2017/luohao-gantt/issues"
+    "url": "https://github.com/LuoHaoAt2017/luohao-data-structure/issues"
   },
-  "homepage": "https://github.com/LuoHaoAt2017/luohao-gantt#readme"
+  "homepage": "https://github.com/LuoHaoAt2017/luohao-data-structure#readme"
 }
