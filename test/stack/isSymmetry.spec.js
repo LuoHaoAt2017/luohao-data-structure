@@ -1,4 +1,5 @@
-import Stack, { isSymmetry } from '../../src/stack';
+import { isSymmetry, postfixExpression } from '../../src';
+import Stack from '../../src/stack';
 
 describe('stack 构造测试', () => {
   const stack = new Stack();
