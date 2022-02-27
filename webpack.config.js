@@ -1,8 +1,6 @@
 const path = require("path");
-const Webpackbar = require("webpackbar");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const { VueLoaderPlugin } = require("vue-loader");
 
 function resolve(params) {
   return path.resolve(__dirname, params);
@@ -51,8 +49,6 @@ module.exports = {
     extensions: [".js", ".ts", ".vue"],
   },
   plugins: [
-    new Webpackbar(),
-    new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "数据结构和算法",
